@@ -1,0 +1,57 @@
+[project]
+name = "datakwip-functional-tests"
+version = "0.1.0"
+description = "Functional test suite for DataKwip platform (Railway deployment)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "httpx>=0.27.0",
+    "playwright>=1.40.0",
+    "python-keycloak>=4.0.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.8.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+    "api: API endpoint tests",
+    "mcp: MCP tool tests",
+    "ui: UI automation tests (requires Playwright browsers)",
+    "auth: Keycloak authentication tests",
+    "integration: Full integration test suite",
+    "slow: Marks tests as slow (> 5 seconds)",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
