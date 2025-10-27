@@ -72,6 +72,8 @@ These instructions guide you through manually creating the `functional-tests` OA
      - Update your `.env` file with the generated secret instead
      - OR use the Keycloak REST API to set it (see Option B below)
 
+Client Secret: CwYxoBl0GQnaGnbJAArMk88tNnWJ6cuB     
+
 ### Step 5: Configure Client Scopes
 
 1. Click **Client scopes** tab (top menu)
