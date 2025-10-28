@@ -35,20 +35,16 @@ class KeycloakAdminClient:
 
     def connect(self):
         """Connect to Keycloak admin API."""
-        # Create connection
-        connection = KeycloakOpenIDConnection(
+        # Create admin client that authenticates via master realm
+        # but performs admin operations on the target realm
+        self._admin = KeycloakAdmin(
             server_url=self.server_url,
-            realm_name="master",  # Admin login uses master realm
+            realm_name=self.realm_name,  # Target realm for admin operations
+            user_realm_name="master",  # Authentication realm (where admin user exists)
             username=self.admin_username,
             password=self.admin_password,
             verify=self.verify,
         )
-
-        # Create admin client
-        self._admin = KeycloakAdmin(connection=connection)
-
-        # Switch to target realm
-        self._admin.realm_name = self.realm_name
 
     def verify_connection(self) -> bool:
         """Verify admin connection is working.

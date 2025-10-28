@@ -15,7 +15,9 @@ def test_database_health(api_client: DataKwipAPIClient):
 
     # Verify response structure
     assert isinstance(health, dict), "Health response should be a dictionary"
-    assert "timescaledb" in health or "status" in health, "Health should include database status"
+    assert "overall_status" in health, "Health should include overall_status"
+    assert "databases" in health, "Health should include databases array"
+    assert health["overall_status"] in ["healthy", "degraded", "critical", "error"], "Invalid overall_status"
 
     # Verify response time
     assert duration < 1.0, f"Database health check should be < 1s, got {duration:.2f}s"
